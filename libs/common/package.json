@@ -1,0 +1,12 @@
+{
+  "name": "@energia/common",
+  "version": "1.0.0",
+  "description": "",
+  "devDependencies": {},
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "vitest"
+  },
+  "author": "",
+  "license": "ISC"
+}
