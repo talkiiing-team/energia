@@ -8,6 +8,9 @@ export const ELEMENT_TYPE_LOCALE: Record<ElementType, string> = {
   dc: 'источник постоянного тока',
   inductor: 'катушка индуктивности',
   resistor: 'резистор',
-  breaker: 'разрыв',
+  // breaker: 'разрыв',
+  get breaker() {
+    return `разрыв${window.a ? ' очка' : ''}`
+  },
   jumper: 'перемычка',
 }

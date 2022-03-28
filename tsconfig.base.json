@@ -12,6 +12,11 @@
     "target": "esnext",
     "module": "esnext",
     "moduleResolution": "node",
-    "sourceMap": false
+    "sourceMap": false,
+    "compilerOptions": {
+      "paths": {
+        "@energia/common": ["./libs/common/src/index.ts"]
+      }
+    }
   }
 }

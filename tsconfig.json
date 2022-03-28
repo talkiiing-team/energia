@@ -1,9 +1,0 @@
-{
-  "extends": "./tsconfig.base.json",
-  "include": ["**/*.ts", "**/*.tsx", "**/*.vue"],
-  "compilerOptions": {
-    "paths": {
-      "@energia/common": ["./libs/common/src/index.ts"]
-    }
-  }
-}

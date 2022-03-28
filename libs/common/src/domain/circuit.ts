@@ -106,10 +106,10 @@ export type Sw9 = typeof sw9[number]
 export const sw7B = [
   breaker(),
   jumper(),
-  inductor({ inductance: inductance(820, 'мкГн') }),
+  inductor({ inductance: inductance(390, 'мкГн') }),
 ] as const
 
-export type Sw7B = typeof sw9[number]
+export type Sw7B = typeof sw7B[number]
 
 export const sw9Suppl = [inductor({ inductance: inductance(820, 'мкГн') })]
 
@@ -243,12 +243,12 @@ export type Circuit = {
   sw4B: Sw4B
   sw5: Sw5
   sw6: Sw6
-  sw6Suppl: Sw6Suppl | null
+  sw6Suppl: Sw6Suppl
   sw7A: Sw7A
   sw7B: Sw7B
   sw8: Sw8
   sw9: Sw9
-  sw9Suppl: Sw9Suppl | null
+  sw9Suppl: Sw9Suppl
   mux1: Mux1
   mux2: Mux2
   mux3: Mux3

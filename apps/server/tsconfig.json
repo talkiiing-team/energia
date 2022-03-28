@@ -13,9 +13,8 @@
     "module": "ESNext",
     "moduleResolution": "Node",
     "resolveJsonModule": true,
-    "noEmit": true,
     "jsx": "preserve",
-    "types": ["vite-svg-loader", "vue/macros-global"],
+    "types": [],
     "paths": {
       "@/*": ["./src/*"]
     }

@@ -62,7 +62,7 @@
       <Node v-bind.props="sw4ABinding.bind" />
       <Node />
       <Node />
-      <Node v-bind.props="sw7ABinding.bind" />
+      <Node v-bind.props="sw7ABinding.bind" labelPlacement="right" />
       <Node />
       <Node />
       <Node />
@@ -121,7 +121,7 @@
       <Node hasTop hasBottom :hasLeft="sw9SupplBinding.displaySupplNode" />
       <Node />
       <Node />
-      <Node v-bind.props="sw2Binding.bind" />
+      <Node v-bind.props="sw2Binding.bind" labelPlacement="right" />
       <Node />
       <Node />
       <Node />
@@ -186,7 +186,7 @@
       <Node hasTop hasBottom :hasLeft="sw9SupplBinding.displaySupplNode" />
       <Node />
       <Node />
-      <Node v-bind.props="mux2Binding.bind" />
+      <Node v-bind.props="mux2Binding.bind" labelPlacement="right" />
       <Node />
       <Node />
       <Node />
@@ -217,7 +217,7 @@
       <Node hasTop hasBottom :hasLeft="sw6SupplBinding.displaySupplNode" />
       <Node />
       <Node />
-      <Node v-bind.props="a2Binding.bind" />
+      <Node v-bind.props="a2Binding.bind" labelPlacement="right" />
       <Node />
       <Node />
       <Node />
@@ -378,7 +378,7 @@
 
   const sw1Binding = useNode('SW1', sw1, sw1Options)
   const sw2Binding = useNode('SW2', sw2, sw2Options)
-  const sw3Binding = useNode('SW3', sw3, sw2Options)
+  const sw3Binding = useNode('SW3', sw3, sw3Options)
   const sw4ABinding = useNode('SW4A', sw4A, sw4AOptions)
   const sw4BBinding = useNode('SW4B', sw4B, sw4BOptions)
   const sw5Binding = useNode('SW5', sw5, sw5Options)

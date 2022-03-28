@@ -1,0 +1,23 @@
+{
+  "name": "@energia/server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon nodemon.json",
+    "test": "vitest"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "awilix": "^7.0.0",
+    "cors": "^2.8.5",
+    "fastify": "^3.27.4",
+    "nedb-promises": "^6.0.3",
+    "serialport": "^10.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15",
+    "vite-node": "^0.7.4"
+  }
+}

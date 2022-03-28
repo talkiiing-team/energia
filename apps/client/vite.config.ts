@@ -16,7 +16,7 @@ export default defineConfig({
     vueJsx(),
     svgLoader(),
     tsConfigPaths({
-      root: path.resolve(__dirname, '../../'),
+      root: path.resolve(__dirname),
     }),
   ],
   build: {

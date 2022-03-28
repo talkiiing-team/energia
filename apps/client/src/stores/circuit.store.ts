@@ -44,12 +44,12 @@ export const circuitStore = defineStore('circuit', () => {
     sw4B: sw4B[0],
     sw5: sw5[0],
     sw6: sw6[0],
-    sw6Suppl: null,
+    sw6Suppl: sw6Suppl[0],
     sw7A: sw7A[0],
     sw7B: sw7B[0],
     sw8: sw8[0],
     sw9: sw9[0],
-    sw9Suppl: null,
+    sw9Suppl: sw9Suppl[0],
     mux1: mux1[0],
     mux2: mux2[0],
     mux3: mux3[0],
@@ -69,27 +69,6 @@ export const circuitStore = defineStore('circuit', () => {
     a3: a3[0],
     a4: a4[0],
   })
-
-  watch(
-    () => elements.sw9,
-    value => {
-      if (value._tag === 'capacitor') {
-        elements.sw9Suppl = sw9Suppl[0]
-      } else {
-        elements.sw9Suppl = null
-      }
-    },
-  )
-  watch(
-    () => elements.sw6,
-    value => {
-      if (value._tag === 'capacitor') {
-        elements.sw6Suppl = sw6Suppl[0]
-      } else {
-        elements.sw6Suppl = null
-      }
-    },
-  )
 
   type ElementKey = keyof typeof elements
 
