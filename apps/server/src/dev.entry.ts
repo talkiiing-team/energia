@@ -1,5 +1,18 @@
+import { INITIAL_STATE } from '@energia/common'
 import { app } from './app'
+import { container } from './container'
 
-app.listen(3030, () => {
-  console.log('App listening on http://localhost:3030')
+container.cradle.port.open(err => {
+  if (err) {
+    console.log(err)
+  } else {
+    container.cradle
+      .sendAtCommand('ate1\r\n')
+      .then(() => container.cradle.setState(INITIAL_STATE))
+      .then(res => {
+        app.listen(3030, '0.0.0.0', () => {
+          console.log('App listening on http://localhost:3030')
+        })
+      })
+  }
 })

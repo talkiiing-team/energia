@@ -1,4 +1,4 @@
-import { Element } from '@energia/common'
+import { Element, statesMap } from '@energia/common'
 import { Ref, computed } from 'vue'
 
 export const getLabel = (el: Element) => {
@@ -15,34 +15,35 @@ export const getLabel = (el: Element) => {
 }
 
 export const useNode = (
-  name: string,
-  ref: Ref<Element>,
+  name: keyof typeof statesMap,
+  ref: Ref<number>,
   options: ReadonlyArray<Element> = [],
 ) => {
   return computed(() => ({
     bind: {
       selectable: options.length > 1,
       onSelect: (i: number) => {
-        ref.value = options[i]
+        ref.value = i
       },
-      type: ref.value._tag,
+      type: statesMap[name][ref.value]._tag,
       options,
-      index: options.findIndex(
-        val => JSON.stringify(val) === JSON.stringify(ref.value),
-      ),
-      label: getLabel(ref.value),
+      index: ref.value,
+      label: getLabel(statesMap[name][ref.value]),
       name,
     },
   }))
 }
 
-export const useSupplNode = (ref: Ref<Element | null>) => {
+export const useSupplNode = (
+  name: keyof typeof statesMap,
+  ref: Ref<number>,
+) => {
   return computed(() => ({
     bind: {
       selectable: false,
-      type: ref.value?._tag ?? undefined,
-      label: !!ref.value ? getLabel(ref.value) : '',
+      type: statesMap[name][ref.value]._tag,
+      label: getLabel(statesMap[name][ref.value]),
     },
-    displaySupplNode: !!ref.value,
+    displaySupplNode: true,
   }))
 }

@@ -55,7 +55,7 @@ const getSw4State = (sw4AState: number, sw4BState: number) =>
   match(sw4AState)
     .with(0, () =>
       match(sw4BState)
-        .with(0, () => 4)
+        .with(0, () => 0)
         .otherwise(() => 2),
     )
     .otherwise(() =>
@@ -103,15 +103,12 @@ const mux4Map = [0, 1, 2, 3, 4, 5, 6, 7, 8] as const
 
 const mux5Map = [0, 1, 2, 3, 4, 5, 6, 7, 8] as const
 
-export const getAtCommand = (
-  state1: Record<keyof Circuit, number>,
-  state2: Record<keyof Circuit, number>,
-) => {
+export const getAtCommand = (state: Record<keyof Circuit, number>) => {
   const swState: number[] = []
 
-  swState[3] = getSw4State(state2.sw4A, state2.sw4B)
+  swState[3] = getSw4State(state.sw4A, state.sw4B)
 
-  swState[6] = getSw7State(state2.sw7A, state2.sw7B)
+  swState[6] = getSw7State(state.sw7A, state.sw7B)
 
   const sw = {
     1: ['sw1', sw1Map] as const,
@@ -126,7 +123,7 @@ export const getAtCommand = (
   for (const key in sw) {
     const [name, map] = sw[key]
 
-    swState[parseInt(key) - 1] = map[state2[name]]
+    swState[parseInt(key) - 1] = map[state[name]]
   }
 
   const muxState: number[] = []
@@ -142,8 +139,12 @@ export const getAtCommand = (
   for (const key in mux) {
     const [name, map] = mux[key]
 
-    muxState[parseInt(key) - 1] = map[state2[name]]
+    muxState[parseInt(key) - 1] = map[state[name]]
   }
 
-  return [`at+swa= ${swState.join(' ')}`, `at+muxa= ${muxState.join(' ')}`]
+  const swCommands = swState.map((val, i) => `at+sw=${i + 1}, ${val}\r\n`)
+  const muxCommands = muxState.map((val, i) => `at+mux=${i + 1}, ${val}\r\n`)
+
+  // return [...swCommands, `at+muxa=${muxState.join(' ')}\r\n`]
+  return [...swCommands, ...muxCommands]
 }

@@ -8,13 +8,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev:all": "npm run dev -w @energia/client & npm run dev -w @energia/server",
     "client:build": "npm run build -w @energia/client"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@energia/server": "file:apps/server",
     "@types/node": "^17.0.21",
     "prettier": "^2.6.0",
+    "ts-node": "^10.7.0",
     "typescript": "^4.6.2",
     "vite": "^2.8.6",
     "vite-tsconfig-paths": "^3.4.1",

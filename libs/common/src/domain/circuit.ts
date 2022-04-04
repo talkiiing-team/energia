@@ -6,6 +6,10 @@ import {
   jumper,
   resistor,
   voltmeter,
+  Element,
+  Ac,
+  Dc,
+  dc,
 } from './element'
 import { capacitance, inductance, resistance } from '../core/metrics'
 
@@ -235,6 +239,8 @@ export type A3 = typeof a3[number]
 export const a4 = [ampermeter()]
 export type A4 = typeof a4[number]
 
+export type Generator = Ac | Dc
+
 export type Circuit = {
   sw1: Sw1
   sw2: Sw2
@@ -267,4 +273,76 @@ export type Circuit = {
   a2: A2
   a3: A3
   a4: A4
+  acDc: Generator
+}
+
+export const statesMap = {
+  sw1,
+  sw2,
+  sw3,
+  sw4A,
+  sw4B,
+  sw5,
+  sw6,
+  sw6Suppl,
+  sw7A,
+  sw7B,
+  sw8,
+  sw9,
+  sw9Suppl,
+  mux1,
+  mux2,
+  mux3,
+  mux4,
+  mux5,
+  tpv1,
+  tpv2,
+  tpv3,
+  tpv4,
+  tpv5,
+  tpv6,
+  tpv7,
+  tpv8,
+  tpv9,
+  a1,
+  a2,
+  a3,
+  a4,
+} as Record<Exclude<keyof Circuit, 'acDc'>, ReadonlyArray<Element>>
+
+export const INITIAL_STATE = {
+  sw1: 0,
+  sw2: 0,
+  sw3: 0,
+  sw4A: 0,
+  sw4B: 0,
+  sw5: 0,
+  sw6: 0,
+  sw6Suppl: 0,
+  sw7A: 0,
+  sw7B: 0,
+  sw8: 0,
+  sw9: 0,
+  sw9Suppl: 0,
+  mux1: 0,
+  mux2: 0,
+  mux3: 0,
+  mux4: 0,
+  mux5: 0,
+  tpv1: 0,
+  tpv2: 0,
+  tpv3: 0,
+  tpv4: 0,
+  tpv5: 0,
+  tpv6: 0,
+  tpv7: 0,
+  tpv8: 0,
+  tpv9: 0,
+  a1: 0,
+  a2: 0,
+  a3: 0,
+  a4: 0,
+  acDc: dc({
+    voltage: 1,
+  }) as Generator,
 }

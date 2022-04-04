@@ -1,83 +1,60 @@
 import { defineStore } from 'pinia'
-import { reactive, toRefs, watch } from 'vue'
-import {
-  a1,
-  a2,
-  a3,
-  a4,
-  Circuit,
-  mux1,
-  mux2,
-  mux3,
-  mux4,
-  mux5,
-  sw1,
-  sw2,
-  sw3,
-  sw4A,
-  sw4B,
-  sw5,
-  sw6,
-  sw6Suppl,
-  sw7A,
-  sw7B,
-  sw8,
-  sw9,
-  sw9Suppl,
-  tpv1,
-  tpv2,
-  tpv3,
-  tpv4,
-  tpv5,
-  tpv6,
-  tpv7,
-  tpv8,
-  tpv9,
-} from '@energia/common'
+import { reactive, ref, toRefs, watch } from 'vue'
+import axios from 'axios'
+import { INITIAL_STATE } from '@energia/common'
+import { useLoadingBar } from 'naive-ui'
+
+type ChannelsData = {
+  channel1: number[]
+  channel2: number[]
+}
+
+type SelectedChannels = {
+  channel1: string
+  channel2: string
+}
 
 export const circuitStore = defineStore('circuit', () => {
-  const elements = reactive<Circuit>({
-    sw1: sw1[0],
-    sw2: sw2[0],
-    sw3: sw3[0],
-    sw4A: sw4A[0],
-    sw4B: sw4B[0],
-    sw5: sw5[0],
-    sw6: sw6[0],
-    sw6Suppl: sw6Suppl[0],
-    sw7A: sw7A[0],
-    sw7B: sw7B[0],
-    sw8: sw8[0],
-    sw9: sw9[0],
-    sw9Suppl: sw9Suppl[0],
-    mux1: mux1[0],
-    mux2: mux2[0],
-    mux3: mux3[0],
-    mux4: mux4[0],
-    mux5: mux5[0],
-    tpv1: tpv1[0],
-    tpv2: tpv2[0],
-    tpv3: tpv3[0],
-    tpv4: tpv4[0],
-    tpv5: tpv5[0],
-    tpv6: tpv6[0],
-    tpv7: tpv7[0],
-    tpv8: tpv8[0],
-    tpv9: tpv9[0],
-    a1: a1[0],
-    a2: a2[0],
-    a3: a3[0],
-    a4: a4[0],
+  const loadingBar = useLoadingBar()
+
+  const elements = reactive<typeof INITIAL_STATE>({
+    ...INITIAL_STATE,
+  })
+  const channels = ref<ChannelsData>()
+  const selectedChannels = ref<SelectedChannels>({
+    channel1: 'tpv1',
+    channel2: 'tpv2',
   })
 
-  type ElementKey = keyof typeof elements
-
-  const setElement = <Key extends ElementKey>(
-    el: Key,
-    val: typeof elements[Key],
-  ) => {
-    elements[el] = val
+  const sendState = async () => {
+    loadingBar.start()
+    await axios.post('http://10.8.0.2:3030/state', elements)
+    const response = await axios.get(
+      `http://10.8.0.2:3030/channels?channel1=${selectedChannels.value.channel1}&channel2=${selectedChannels.value.channel2}`,
+    )
+    loadingBar.finish()
+    channels.value = response.data
   }
 
-  return { ...toRefs(elements), setElement }
+  watch(Object.values(toRefs(elements)), sendState)
+
+  watch(
+    Object.values(toRefs(selectedChannels.value)),
+    async () => {
+      console.log('reloading channels')
+
+      loadingBar.start()
+      const response = await axios.get(
+        `http://10.8.0.2:3030/channels?channel1=${selectedChannels.value.channel1}&channel2=${selectedChannels.value.channel2}`,
+      )
+      loadingBar.finish()
+
+      channels.value = response.data
+    },
+    {
+      immediate: true,
+    },
+  )
+
+  return { ...toRefs(elements), channels, selectedChannels, sendState }
 })

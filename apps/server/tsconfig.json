@@ -13,8 +13,7 @@
     "module": "ESNext",
     "moduleResolution": "Node",
     "resolveJsonModule": true,
-    "jsx": "preserve",
-    "types": [],
+    "types": ["@types/node"],
     "paths": {
       "@/*": ["./src/*"]
     }

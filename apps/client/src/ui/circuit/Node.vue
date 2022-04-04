@@ -49,12 +49,16 @@
             labelPlacement === 'top',
         }"
       >
-        <h4 v-if="name" class="text-blue-600 font-bold">
+        <h4 v-if="name" class="text-blue-600 font-bold uppercase">
           {{ name }}
         </h4>
         <div v-if="label">
           {{ label }}
         </div>
+      </div>
+
+      <div class="absolute -top-1/2 -left-2 -translate-x-full">
+        <slot name="form"></slot>
       </div>
     </div>
   </component>

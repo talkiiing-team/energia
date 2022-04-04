@@ -1,6 +1,6 @@
 <template>
   <div
-    class="mx-auto max-w-full w-fit overflow-hidden overflow-x-visible px-32 py-24"
+    class="mx-auto max-w-full w-fit overflow-hidden overflow-x-visible px-32 py-28"
   >
     <div
       class="grid grid-cols-[repeat(21,minmax(0,3rem))] w-fit min-w-[calc(21*3rem)]"
@@ -252,7 +252,11 @@
       <Node></Node>
       <!---->
       <Node />
-      <Node type="ac" />
+      <Node :type="acDc._tag">
+        <template #form>
+          <GeneratorForm />
+        </template>
+      </Node>
       <Node />
       <Node />
       <Node></Node>
@@ -307,6 +311,7 @@
   import Node from '@/ui/circuit/Node.vue'
   import { useNode, useSupplNode } from '../hooks/useNode'
   import { circuitStore } from '../stores/circuit.store'
+  import GeneratorForm from './GeneratorForm.vue'
   import { toRefs } from 'vue'
   import {
     sw1 as sw1Options,
@@ -374,37 +379,38 @@
     a2,
     a3,
     a4,
+    acDc,
   } = toRefs(store)
 
-  const sw1Binding = useNode('SW1', sw1, sw1Options)
-  const sw2Binding = useNode('SW2', sw2, sw2Options)
-  const sw3Binding = useNode('SW3', sw3, sw3Options)
-  const sw4ABinding = useNode('SW4A', sw4A, sw4AOptions)
-  const sw4BBinding = useNode('SW4B', sw4B, sw4BOptions)
-  const sw5Binding = useNode('SW5', sw5, sw5Options)
-  const sw6Binding = useNode('SW6', sw6, sw6Options)
-  const sw6SupplBinding = useSupplNode(sw6Suppl)
-  const sw7ABinding = useNode('SW7A', sw7A, sw7AOptions)
-  const sw7BBinding = useNode('SW7B', sw7B, sw7BOptions)
-  const sw8Binding = useNode('SW8', sw8, sw8Options)
-  const sw9Binding = useNode('SW9', sw9, sw9Options)
-  const sw9SupplBinding = useSupplNode(sw9Suppl)
-  const mux1Binding = useNode('MUX1', mux1, mux1Options)
-  const mux2Binding = useNode('MUX2', mux2, mux2Options)
-  const mux3Binding = useNode('MUX3', mux3, mux3Options)
-  const mux4Binding = useNode('MUX4', mux4, mux4Options)
-  const mux5Binding = useNode('MUX5', mux5, mux5Options)
-  const tpv1Binding = useNode('TPV1', tpv1, tpv1Options)
-  const tpv2Binding = useNode('TPV2', tpv2, tpv2Options)
-  const tpv3Binding = useNode('TPV3', tpv3, tpv3Options)
-  const tpv4Binding = useNode('TPV4', tpv4, tpv4Options)
-  const tpv5Binding = useNode('TPV5', tpv5, tpv5Options)
-  const tpv6Binding = useNode('TPV6', tpv6, tpv6Options)
-  const tpv7Binding = useNode('TPV7', tpv7, tpv7Options)
-  const tpv8Binding = useNode('TPV8', tpv8, tpv8Options)
-  const tpv9Binding = useNode('TPV9', tpv9, tpv9Options)
-  const a1Binding = useNode('A1', a1, a1Options)
-  const a2Binding = useNode('A2', a2, a2Options)
-  const a3Binding = useNode('A3', a3, a3Options)
-  const a4Binding = useNode('A4', a4, a4Options)
+  const sw1Binding = useNode('sw1', sw1, sw1Options)
+  const sw2Binding = useNode('sw2', sw2, sw2Options)
+  const sw3Binding = useNode('sw3', sw3, sw3Options)
+  const sw4ABinding = useNode('sw4A', sw4A, sw4AOptions)
+  const sw4BBinding = useNode('sw4B', sw4B, sw4BOptions)
+  const sw5Binding = useNode('sw5', sw5, sw5Options)
+  const sw6Binding = useNode('sw6', sw6, sw6Options)
+  const sw6SupplBinding = useSupplNode('sw6Suppl', sw6Suppl)
+  const sw7ABinding = useNode('sw7A', sw7A, sw7AOptions)
+  const sw7BBinding = useNode('sw7B', sw7B, sw7BOptions)
+  const sw8Binding = useNode('sw8', sw8, sw8Options)
+  const sw9Binding = useNode('sw9', sw9, sw9Options)
+  const sw9SupplBinding = useSupplNode('sw9Suppl', sw9Suppl)
+  const mux1Binding = useNode('mux1', mux1, mux1Options)
+  const mux2Binding = useNode('mux2', mux2, mux2Options)
+  const mux3Binding = useNode('mux3', mux3, mux3Options)
+  const mux4Binding = useNode('mux4', mux4, mux4Options)
+  const mux5Binding = useNode('mux5', mux5, mux5Options)
+  const tpv1Binding = useNode('tpv1', tpv1, tpv1Options)
+  const tpv2Binding = useNode('tpv2', tpv2, tpv2Options)
+  const tpv3Binding = useNode('tpv3', tpv3, tpv3Options)
+  const tpv4Binding = useNode('tpv4', tpv4, tpv4Options)
+  const tpv5Binding = useNode('tpv5', tpv5, tpv5Options)
+  const tpv6Binding = useNode('tpv6', tpv6, tpv6Options)
+  const tpv7Binding = useNode('tpv7', tpv7, tpv7Options)
+  const tpv8Binding = useNode('tpv8', tpv8, tpv8Options)
+  const tpv9Binding = useNode('tpv9', tpv9, tpv9Options)
+  const a1Binding = useNode('a1', a1, a1Options)
+  const a2Binding = useNode('a2', a2, a2Options)
+  const a3Binding = useNode('a3', a3, a3Options)
+  const a4Binding = useNode('a4', a4, a4Options)
 </script>

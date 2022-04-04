@@ -13,20 +13,39 @@
       }}</span>
     </div>
 
-    <NSelect />
+    <NSelect
+      :options="selectOptions"
+      @update:value="onSelect"
+      :value="modelValue"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
   import { NProgress, NSelect } from 'naive-ui'
 
-  const { value, unit, min, max, status } = defineProps<{
-    value: number
+  const { value, unit, min, max, status, options, modelValue } = defineProps<{
+    value: string
     unit: string
     min: number
     max: number
+    options: string[]
+    modelValue: string
     status?: 'success' | 'error' | 'warning' | 'info' | 'default'
   }>()
+
+  const emit = defineEmits<{
+    (event: 'update:modelValue', value: string): void
+  }>()
+
+  const onSelect = (value: string) => emit('update:modelValue', value)
+
+  const selectOptions = $computed(() =>
+    options.map(option => ({
+      value: option,
+      label: option,
+    })),
+  )
 
   const percentage = $computed(() =>
     Math.max(Math.min(((value - min) / (max - min)) * 100, 100), 0),

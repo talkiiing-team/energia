@@ -13,10 +13,8 @@
     "module": "esnext",
     "moduleResolution": "node",
     "sourceMap": false,
-    "compilerOptions": {
-      "paths": {
-        "@energia/common": ["./libs/common/src/index.ts"]
-      }
+    "paths": {
+      "@energia/common": ["./libs/common/src/index.ts"]
     }
   }
 }
