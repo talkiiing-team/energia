@@ -6,8 +6,8 @@ container.cradle.port.open(err => {
   if (err) {
     console.log(err)
   } else {
-    container.cradle
-      .sendAtCommand('ate1\r\n')
+    container.cradle.atService
+      .sendAtCommand('ate1')
       .then(() => container.cradle.setState(INITIAL_STATE))
       .then(res => {
         app.listen(3030, '0.0.0.0', () => {

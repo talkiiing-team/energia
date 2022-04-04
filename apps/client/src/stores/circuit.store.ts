@@ -1,13 +1,8 @@
 import { defineStore } from 'pinia'
 import { reactive, ref, toRefs, watch } from 'vue'
 import axios from 'axios'
-import { INITIAL_STATE } from '@energia/common'
+import { Channels, INITIAL_STATE } from '@energia/common'
 import { useLoadingBar } from 'naive-ui'
-
-type ChannelsData = {
-  channel1: number[]
-  channel2: number[]
-}
 
 type SelectedChannels = {
   channel1: string
@@ -20,7 +15,7 @@ export const circuitStore = defineStore('circuit', () => {
   const elements = reactive<typeof INITIAL_STATE>({
     ...INITIAL_STATE,
   })
-  const channels = ref<ChannelsData>()
+  const channels = ref<Channels>()
   const selectedChannels = ref<SelectedChannels>({
     channel1: 'tpv1',
     channel2: 'tpv2',

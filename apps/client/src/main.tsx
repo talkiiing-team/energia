@@ -1,4 +1,6 @@
 import { createApp } from 'vue'
+import './ui/styles/index.css'
+
 import App from './App.vue'
 import { createPinia } from 'pinia'
 
@@ -34,7 +36,5 @@ Chart.overrides.line.scales.y = {
 //     },
 //   },
 // }
-
-import './index.css'
 
 createApp(App).use(createPinia()).mount('#root')

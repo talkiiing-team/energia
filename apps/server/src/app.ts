@@ -1,19 +1,25 @@
 import fastify from 'fastify'
-import cors from 'fastify-cors'
 import { container } from './container'
-const app = fastify()
-  .register(cors, {
-    origin: '*',
-  })
+import express from 'express'
+import cors from 'cors'
+import queue from 'express-queue'
+const app = express()
+  .use(express.json())
+  .use(
+    cors({
+      origin: '*',
+    }),
+  )
   .get('/', (req, res) => {
     console.log('hello')
     res.send('hello')
   })
+  .use(queue({ activeLimit: 1, queuedLimit: -1 }))
   .post('/state', async (req, res) => {
     console.log('state')
     const result = await container.cradle.setState(req.body as any)
 
-    res.send(result)
+    res.json(result)
   })
   .get('/channels', async (req, res) => {
     console.log('channels')
@@ -22,7 +28,7 @@ const app = fastify()
       req.query.channel2,
     )
 
-    res.send(result)
+    res.json(result)
   })
 
 export { app }

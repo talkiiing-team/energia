@@ -5,36 +5,41 @@
     <div class="flex flex-col space-y-5">
       <Speedometer
         :options="tpv"
-        :value="channelsMax.channel1"
-        :min="0"
-        :max="10"
+        :value="(channels?.channel1.average ?? 0).toFixed(2)"
+        :min="channels?.channel1.min ?? 0"
+        :max="channels?.channel1.max ?? 10"
         unit="В"
         v-model="selectedChannels.channel1"
       />
       <Speedometer
         :options="tpv"
         status="warning"
-        :value="channelsMax.channel2"
-        :min="0"
-        :max="10"
+        :value="(channels?.channel2.average ?? 0).toFixed(2)"
+        :min="channels?.channel2.min ?? 0"
+        :max="channels?.channel2.max ?? 10"
         unit="В"
         v-model="selectedChannels.channel2"
       />
     </div>
-    <Oscilloscope>
+    <Oscilloscope
+      v-model:xValue="xRange"
+      v-model:yValue="yRange"
+      :y="{ min: -11, max: 11 }"
+      :x="{ min: 0, max: 256 }"
+    >
       <LineChart
         v-if="!!channels"
         class="h-full"
         :chart-data="{
-          labels: Object.keys(channels.channel1),
+          labels: Object.keys(channels.channel1.values),
           datasets: [
             {
-              data: channels.channel1,
+              data: channels.channel1.values,
               fill: false,
               borderColor: colors.blue[500],
             },
             {
-              data: channels.channel2,
+              data: channels.channel2.values,
               fill: false,
               borderColor: colors.amber[500],
             },
@@ -51,6 +56,19 @@
           },
           tooltips: {
             enabled: false,
+          },
+          scales: {
+            x: {
+              min: xRange[0],
+              max: xRange[1],
+            },
+            y: {
+              min: yRange[0],
+              max: yRange[1],
+            },
+          },
+          animation: {
+            duration: 350,
           },
         }"
       />
@@ -80,14 +98,6 @@
     'tpv9',
   ]
 
-  const channelsMax = $computed(() => ({
-    channel1:
-      channels.value?.channel1
-        .reduce((acc, val) => Math.max(acc, Math.abs(val), 0))
-        .toFixed(2) ?? '0',
-    channel2:
-      channels.value?.channel2
-        .reduce((acc, val) => Math.max(acc, Math.abs(val), 0))
-        .toFixed(2) ?? '0',
-  }))
+  const yRange = $ref<[number, number]>([-5, 5])
+  const xRange = $ref<[number, number]>([0, 256])
 </script>

@@ -142,9 +142,13 @@ export const getAtCommand = (state: Record<keyof Circuit, number>) => {
     muxState[parseInt(key) - 1] = map[state[name]]
   }
 
-  const swCommands = swState.map((val, i) => `at+sw=${i + 1}, ${val}\r\n`)
-  const muxCommands = muxState.map((val, i) => `at+mux=${i + 1}, ${val}\r\n`)
+  const swCommands = swState.map(
+    (val, i) => `at+sw=${i + 1}, ${val.toString(16)}`,
+  )
+  const muxCommands = muxState.map(
+    (val, i) => `at+mux=${i + 1}, ${val.toString(16)}`,
+  )
 
-  // return [...swCommands, `at+muxa=${muxState.join(' ')}\r\n`]
+  // return [...swCommands, `at+muxa=${muxState.join(' ')}`]
   return [...swCommands, ...muxCommands]
 }

@@ -1,4 +1,5 @@
 import {
+  asClass,
   asFunction,
   asValue,
   createContainer,
@@ -8,7 +9,7 @@ import {
 import { INITIAL_STATE } from '@energia/common'
 import { SerialPort } from 'serialport'
 import { getChannels, setState } from './application'
-import { getAdcData, sendAtCommand } from './infrastructure'
+import { AtService } from './infrastructure'
 
 export const container = createContainer<{
   port: SerialPort
@@ -17,8 +18,7 @@ export const container = createContainer<{
   setState: ReturnType<typeof setState>
   getChannels: ReturnType<typeof getChannels>
 
-  sendAtCommand: ReturnType<typeof sendAtCommand>
-  getAdcData: ReturnType<typeof getAdcData>
+  atService: AtService
 }>({
   injectionMode: InjectionMode.PROXY,
 }).register({
@@ -34,8 +34,9 @@ export const container = createContainer<{
       ...INITIAL_STATE,
     },
   }),
-  sendAtCommand: asFunction(sendAtCommand),
+
   setState: asFunction(setState),
   getChannels: asFunction(getChannels),
-  getAdcData: asFunction(getAdcData),
+
+  atService: asClass(AtService),
 })

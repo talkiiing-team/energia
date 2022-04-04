@@ -2,7 +2,7 @@
   <div class="flex flex-col w-32 items-center space-y-3">
     <div class="relative w-fit">
       <n-progress type="dashboard" :status="status" :percentage="percentage">
-        <span class="text-xl"
+        <span class="text-xl text-center"
           >{{ value }} <span class="text-zinc-600">{{ unit }}</span></span
         >
       </n-progress>
