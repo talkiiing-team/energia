@@ -125,7 +125,7 @@ export type Sw4A = typeof sw4A[number]
 
 export const sw4B = [
   breaker(),
-  inductor({ inductance: inductance(1.5, 'мкГн') }),
+  inductor({ inductance: inductance(1.5, 'мГн') }),
 ] as const
 
 export type Sw4B = typeof sw4B[number]
