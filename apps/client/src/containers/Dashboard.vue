@@ -4,20 +4,20 @@
   >
     <div class="flex flex-col space-y-5">
       <Speedometer
-        :options="tpv"
+        :options="options"
         :value="(channels?.channel1.average ?? 0).toFixed(2)"
         :min="channels?.channel1.min ?? 0"
         :max="channels?.channel1.max ?? 10"
-        unit="В"
+        :unit="channels?.channel1.unit ?? ''"
         v-model="selectedChannels.channel1"
       />
       <Speedometer
-        :options="tpv"
+        :options="options"
         status="warning"
         :value="(channels?.channel2.average ?? 0).toFixed(2)"
         :min="channels?.channel2.min ?? 0"
         :max="channels?.channel2.max ?? 10"
-        unit="В"
+        :unit="channels?.channel2.unit ?? ''"
         v-model="selectedChannels.channel2"
       />
     </div>
@@ -82,22 +82,24 @@
   import Oscilloscope from '../ui/common/Oscilloscope.vue'
   import { LineChart } from 'vue-chart-3'
   import { circuitStore } from '../stores/circuit.store'
-  import { toRefs } from 'vue'
+  import { toRefs, watch } from 'vue'
+  import { tpv, amp } from '@energia/common'
 
-  const { channels, selectedChannels } = toRefs(circuitStore())
+  const { channels, selectedChannels, acDc } = toRefs(circuitStore())
 
-  const tpv = [
-    'tpv1',
-    'tpv2',
-    'tpv3',
-    'tpv4',
-    'tpv5',
-    'tpv6',
-    'tpv7',
-    'tpv8',
-    'tpv9',
-  ]
+  const options = [...tpv, ...amp]
 
   const yRange = $ref<[number, number]>([-5, 5])
-  const xRange = $ref<[number, number]>([0, 256])
+  let xRange = $ref<[number, number]>([0, 256])
+
+  watch(
+    acDc,
+    () => {
+      if (acDc.value._tag === 'dc') xRange = [2, 3]
+      else xRange = [0, 256]
+    },
+    {
+      immediate: true,
+    },
+  )
 </script>

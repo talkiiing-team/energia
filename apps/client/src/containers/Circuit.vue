@@ -106,7 +106,7 @@
       <Node />
       <Node />
       <Node />
-      <Node v-bind.props="a4Binding.bind" />
+      <Node v-bind.props="a3Binding.bind" />
       <!---->
       <Node hasTop hasRight />
       <Node hasTop hasLeft hasBottom />
@@ -217,12 +217,12 @@
       <Node hasTop hasBottom :hasLeft="sw6SupplBinding.displaySupplNode" />
       <Node />
       <Node />
-      <Node v-bind.props="a2Binding.bind" labelPlacement="right" />
+      <Node v-bind.props="a1Binding.bind" labelPlacement="right" />
       <Node />
       <Node />
       <Node />
       <Node />
-      <Node v-bind.props="a3Binding.bind" />
+      <Node v-bind.props="a2Binding.bind" />
       <Node />
       <Node />
       <Node />
@@ -230,7 +230,7 @@
       <Node></Node>
       <!---->
       <Node />
-      <Node v-bind.props="a1Binding.bind" labelPlacement="right" />
+      <Node v-bind.props="a4Binding.bind" labelPlacement="right" />
       <Node />
       <Node />
       <Node></Node>
