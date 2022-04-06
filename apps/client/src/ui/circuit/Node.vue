@@ -57,7 +57,10 @@
         </div>
       </div>
 
-      <div class="absolute -top-1/2 -left-2 -translate-x-full">
+      <div
+        v-if="$slots.form"
+        class="absolute -top-1/2 -left-2 -translate-x-full z-10"
+      >
         <slot name="form"></slot>
       </div>
     </div>

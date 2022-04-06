@@ -22,9 +22,11 @@
       />
     </div>
     <Oscilloscope
-      v-model:xValue="xRange"
-      v-model:yValue="yRange"
-      :y="{ min: -11, max: 11 }"
+      v-model:xRange="xRange"
+      v-model:channel1Range="channel1Range"
+      v-model:channel2Range="channel2Range"
+      :channel1="channel1"
+      :channel2="channel2"
       :x="{ min: 0, max: 256 }"
     >
       <LineChart
@@ -37,11 +39,13 @@
               data: channels.channel1.values,
               fill: false,
               borderColor: colors.blue[500],
+              yAxisID: 'channel1',
             },
             {
               data: channels.channel2.values,
               fill: false,
               borderColor: colors.amber[500],
+              yAxisID: 'channel2',
             },
           ],
         }"
@@ -62,9 +66,39 @@
               min: xRange[0],
               max: xRange[1],
             },
-            y: {
-              min: yRange[0],
-              max: yRange[1],
+            channel1: {
+              min: channel1Range[0],
+              max: channel1Range[1],
+              position: 'left',
+              grid: {
+                color: colors.transparent,
+              },
+            },
+            channel2: {
+              min: channel2Range[0],
+              max: channel2Range[1],
+              position: 'right',
+              grid: {
+                color: colors.transparent,
+              },
+            },
+            channelGhost: {
+              min: -10,
+              max: 10,
+              ticks: {
+                display: false,
+                major: {
+                  enabled: false,
+                },
+                stepSize: 1,
+                color: colors.transparent,
+              },
+              drawBorder: false,
+              grid: {
+                color: colors.zinc[400],
+                borderColor: colors.transparent,
+                drawTicks: false,
+              },
             },
           },
           animation: {
@@ -89,7 +123,8 @@
 
   const options = [...tpv, ...amp]
 
-  const yRange = $ref<[number, number]>([-5, 5])
+  const channel1Range = $ref<[number, number]>([-5, 5])
+  const channel2Range = $ref<[number, number]>([-5, 5])
   let xRange = $ref<[number, number]>([0, 256])
 
   watch(
@@ -102,4 +137,20 @@
       immediate: true,
     },
   )
+
+  const channel1 = $computed(() => {
+    const max = channels.value?.channel1.max ?? 10
+    return {
+      min: -max,
+      max,
+    }
+  })
+
+  const channel2 = $computed(() => {
+    const max = channels.value?.channel2.max ?? 10
+    return {
+      min: -max,
+      max,
+    }
+  })
 </script>

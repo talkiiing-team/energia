@@ -1,5 +1,5 @@
 <template>
-  <div class="w-36 flex flex-col p-2 bg-zinc-200 shadow-lg rounded-lg">
+  <div class="w-36 flex flex-col p-2 bg-zinc-200 shadow-lg rounded-lg z-50">
     <n-switch
       :value="isDc"
       :rail-style="railStyle"

@@ -63,9 +63,7 @@ export const getChannels =
         min: 0,
         max: isTpv(channel1)
           ? 10
-          : Math.floor(
-              11.6 * Math.floor(coefficient(channel1)) * Math.SQRT1_2 - 1,
-            ),
+          : channel1 === 'a4' ? 31 : 35, 
         unit: isTpv(channel1) ? 'В' : 'мА',
       },
       channel2: {
@@ -75,9 +73,7 @@ export const getChannels =
         min: 0,
         max: isTpv(channel2)
           ? 10
-          : Math.floor(
-              11.6 * Math.floor(coefficient(channel2)) * Math.SQRT1_2 - 1,
-            ),
+          : channel2 === 'a4' ? 31 : 35, 
         unit: isTpv(channel2) ? 'В' : 'мА',
       },
     }
