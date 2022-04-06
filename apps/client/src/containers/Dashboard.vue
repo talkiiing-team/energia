@@ -139,7 +139,12 @@
   )
 
   const channel1 = $computed(() => {
-    const max = channels.value?.channel1.max ?? 10
+    // const max = channels.value?.channel1.max ?? 10
+    const max = tpv.includes(selectedChannels.value.channel1)
+      ? 10
+      : acDc.value._tag === 'ac'
+      ? 35
+      : 45
     return {
       min: -max,
       max,
@@ -147,7 +152,11 @@
   })
 
   const channel2 = $computed(() => {
-    const max = channels.value?.channel2.max ?? 10
+    const max = tpv.includes(selectedChannels.value.channel2)
+      ? 10
+      : acDc.value._tag === 'ac'
+      ? 35
+      : 45
     return {
       min: -max,
       max,
