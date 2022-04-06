@@ -39,14 +39,18 @@ export const getChannels =
     if (state.circuit.acDc._tag === 'dc') {
       return {
         channel1: {
-          values: result.channel1,
+          values: isTpv(channel1)
+            ? result.channel1
+            : result.channel1.map(v => v * coefficient(channel1)),
           average: getAverage(result.channel1) * coefficient(channel1),
           min: isTpv(channel1) ? -5 : channel1 === 'a4' ? -43 : -45,
           max: isTpv(channel1) ? 5 : channel1 === 'a4' ? 43 : 45,
           unit: isTpv(channel1) ? 'В' : 'мА',
         },
         channel2: {
-          values: result.channel2,
+          values: isTpv(channel2)
+            ? result.channel2
+            : result.channel2.map(v => v * coefficient(channel2)),
           average: getAverage(result.channel2) * coefficient(channel2),
           min: isTpv(channel2) ? -5 : channel2 === 'a4' ? -43 : -45,
           max: isTpv(channel2) ? 5 : channel2 === 'a4' ? 43 : 45,
@@ -57,23 +61,23 @@ export const getChannels =
 
     return {
       channel1: {
-        values: result.channel1,
+        values: isTpv(channel1)
+          ? result.channel1
+          : result.channel1.map(v => v * coefficient(channel1)),
         average:
           getAmplitude(result.channel1) * Math.SQRT1_2 * coefficient(channel1),
         min: 0,
-        max: isTpv(channel1)
-          ? 10
-          : channel1 === 'a4' ? 31 : 35, 
+        max: isTpv(channel1) ? 10 : channel1 === 'a4' ? 31 : 35,
         unit: isTpv(channel1) ? 'В' : 'мА',
       },
       channel2: {
-        values: result.channel2,
+        values: isTpv(channel2)
+          ? result.channel2
+          : result.channel2.map(v => v * coefficient(channel2)),
         average:
           getAmplitude(result.channel2) * Math.SQRT1_2 * coefficient(channel2),
         min: 0,
-        max: isTpv(channel2)
-          ? 10
-          : channel2 === 'a4' ? 31 : 35, 
+        max: isTpv(channel2) ? 10 : channel2 === 'a4' ? 31 : 35,
         unit: isTpv(channel2) ? 'В' : 'мА',
       },
     }
