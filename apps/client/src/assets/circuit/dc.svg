@@ -4,5 +4,8 @@
 <rect x="23" y="42" width="2" height="7" fill="currentColor"/>
 <circle cx="24" cy="24" r="17" stroke="currentColor" stroke-width="2"/>
 <path d="M24 15V33M17 22L24 15L17 22ZM24 15L31 22L24 15Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="42" y="4" width="2" height="8" fill="currentColor"/>
+<rect x="39" y="7" width="8" height="2" fill="currentColor"/>
+<rect x="39" y="39" width="8" height="2" fill="currentColor"/>
 </g>
 </svg>
