@@ -25,6 +25,7 @@ export const container = createContainer<{
   port: asValue(
     new SerialPort({
       path: '/dev/ttyUSB0',
+      // path: '/dev/tty.usbserial-130',
       baudRate: 921600,
       autoOpen: false,
     }),

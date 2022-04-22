@@ -16,7 +16,7 @@ export default defineConfig({
     },
     emptyOutDir: true,
     rollupOptions: {
-      external: [...Object.keys(pkg.dependencies), 'path'],
+      external: [...Object.keys(pkg.dependencies), 'url', 'path'],
     },
   },
 })

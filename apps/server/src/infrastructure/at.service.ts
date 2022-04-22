@@ -50,8 +50,8 @@ export class AtService implements IAtService {
   }
 
   async getAdcData(channel1: string, channel2: string) {
-    await this.sendAtCommand('at+adcs=256')
-    await this.sendAtCommand('at+adcd=19')
+    await this.sendAtCommand('at+adcs=1024')
+    await this.sendAtCommand('at+adcd=4')
 
     await this.sendAtCommand(`at+adc=1, ${channel1}`)
     await this.sendAtCommand(`at+adc=2, ${channel2}`)

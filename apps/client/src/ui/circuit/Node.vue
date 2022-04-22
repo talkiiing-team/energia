@@ -52,7 +52,7 @@
         <h4 v-if="name" class="text-blue-600 font-bold uppercase">
           {{ name }}
         </h4>
-        <div v-if="label">
+        <div v-if="label && showLabel">
           {{ label }}
         </div>
       </div>
@@ -91,6 +91,7 @@
     label,
     index,
     labelPlacement = 'left',
+    showLabel = true,
   } = defineProps<{
     hasTop?: boolean
     hasBottom?: boolean
@@ -101,6 +102,7 @@
     orientation?: 'vertical' | 'horizontal'
     options?: Element[]
     label?: string
+    showLabel?: boolean
     name?: string
     index?: number
     labelPlacement?: 'right' | 'top' | 'left' | 'bottom'

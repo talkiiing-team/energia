@@ -9,7 +9,7 @@ type SelectedChannels = {
   channel2: string
 }
 
-const BASE_URL = import.meta.env.PROD ? '' : 'http://10.8.0.2:3030'
+const BASE_URL = import.meta.env.PROD ? '' : 'http://192.168.0.201:3030'
 
 export const circuitStore = defineStore('circuit', () => {
   const loadingBar = useLoadingBar()

@@ -27,7 +27,7 @@
       v-model:channel2Range="channel2Range"
       :channel1="channel1"
       :channel2="channel2"
-      :x="{ min: 0, max: 256 }"
+      :x="{ min: 0, max: 1024 }"
     >
       <LineChart
         v-if="!!channels"
