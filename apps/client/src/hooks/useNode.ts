@@ -9,6 +9,8 @@ export const getLabel = (el: Element) => {
       return el.value.capacitance.toString()
     case 'inductor':
       return el.value.inductance.toString()
+    case 'ampermeter':
+      return `${el.value.derivation.toString()} (${el.value.maxCurrent.toString()})`
     default:
       return undefined
   }

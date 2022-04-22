@@ -11,7 +11,12 @@ import {
   Dc,
   dc,
 } from './element'
-import { capacitance, inductance, resistance } from '../core/metrics'
+import {
+  capacitance,
+  electricalForce,
+  inductance,
+  resistance,
+} from '../core/metrics'
 
 export const sw1 = [
   breaker(),
@@ -227,16 +232,48 @@ export type Tpv8 = typeof tpv8[number]
 export const tpv9 = [voltmeter()]
 export type Tpv9 = typeof tpv9[number]
 
-export const a1 = [ampermeter()]
+export const a1 = [
+  ampermeter({
+    derivation: resistance(10, 'Ом'),
+    maxCurrent: electricalForce(10, 'мА'),
+  }),
+  ampermeter({
+    derivation: resistance(3.3, 'Ом'),
+    maxCurrent: electricalForce(40, 'мА'),
+  }),
+]
 export type A1 = typeof a1[number]
 
-export const a2 = [ampermeter()]
+export const a2 = [
+  ampermeter({
+    derivation: resistance(10, 'Ом'),
+    maxCurrent: electricalForce(10, 'мА'),
+  }),
+  ampermeter({
+    derivation: resistance(3.3, 'Ом'),
+    maxCurrent: electricalForce(40, 'мА'),
+  }),
+]
 export type A2 = typeof a2[number]
 
-export const a3 = [ampermeter()]
+export const a3 = [
+  ampermeter({
+    derivation: resistance(10, 'Ом'),
+    maxCurrent: electricalForce(10, 'мА'),
+  }),
+  ampermeter({
+    derivation: resistance(3.3, 'Ом'),
+    maxCurrent: electricalForce(40, 'мА'),
+  }),
+]
 export type A3 = typeof a3[number]
 
-export const a4 = [ampermeter()]
+export const a4 = [
+  ampermeter({
+    derivation: resistance(1, 'Ом'),
+    maxCurrent: electricalForce(40, 'мА'),
+  }),
+]
 export type A4 = typeof a4[number]
 
 export type Generator = Ac | Dc
@@ -338,9 +375,9 @@ export const INITIAL_STATE = {
   tpv7: 0,
   tpv8: 0,
   tpv9: 0,
-  a1: 0,
-  a2: 0,
-  a3: 0,
+  a1: 1,
+  a2: 1,
+  a3: 1,
   a4: 0,
   acDc: dc({
     voltage: 1,

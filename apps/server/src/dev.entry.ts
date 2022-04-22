@@ -8,7 +8,6 @@ container.cradle.port.open(err => {
   } else {
     container.cradle.atService
       .sendAtCommand('ate1')
-      .then(() => container.cradle.atService.sendAtCommand('at+rl=7'))
       .then(() => container.cradle.setState(INITIAL_STATE))
       .then(res => {
         app.listen(3030, '0.0.0.0', () => {

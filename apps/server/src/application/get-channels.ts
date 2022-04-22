@@ -14,7 +14,6 @@ const getAmplitude = (arr: number[]) =>
 export const getChannels =
   ({ atService, state }: GetChannelsDeps) =>
   async (channel1: ChannelUnion, channel2: ChannelUnion): Promise<Channels> => {
-    console.log(state)
     const map = {
       tpv1: 'v1',
       tpv2: 'v2',
@@ -33,8 +32,13 @@ export const getChannels =
 
     const result = await atService.getAdcData(map[channel1], map[channel2])
 
-    const coefficient = (channel: ChannelUnion) =>
-      isTpv(channel) ? 1 : channel === 'a4' ? 3.99392 / 1.06 : 4.67289 / 1.072
+    const coefficient = (channel: ChannelUnion) => {
+      return isTpv(channel)
+        ? 1
+        : channel === 'a4'
+        ? 3.99392 / 1.06
+        : 4.67289 / 1.072 / (state.circuit[channel] === 0 ? 4 : 1)
+    }
 
     if (state.circuit.acDc._tag === 'dc') {
       return {

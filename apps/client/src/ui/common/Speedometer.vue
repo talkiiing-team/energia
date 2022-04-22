@@ -1,5 +1,8 @@
 <template>
-  <div class="flex flex-col w-32 items-center space-y-3">
+  <div
+    class="flex flex-col w-32 items-center space-y-3 cursor-pointer"
+    @click="isOpened = !isOpened"
+  >
     <div class="relative w-fit">
       <n-progress type="dashboard" :status="status" :percentage="percentage">
         <span
@@ -19,12 +22,15 @@
       :options="selectOptions"
       @update:value="onSelect"
       :value="modelValue"
+      :show="isOpened"
     />
   </div>
 </template>
 
 <script setup lang="ts">
   import { NProgress, NSelect } from 'naive-ui'
+
+  let isOpened = $ref(false)
 
   const { value, unit, min, max, status, options, modelValue } = defineProps<{
     value: string
@@ -40,7 +46,10 @@
     (event: 'update:modelValue', value: string): void
   }>()
 
-  const onSelect = (value: string) => emit('update:modelValue', value)
+  const onSelect = (value: string) => {
+    emit('update:modelValue', value)
+    isOpened = false
+  }
 
   const selectOptions = $computed(() =>
     options.map(option => ({

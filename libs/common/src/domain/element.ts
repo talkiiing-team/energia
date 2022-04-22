@@ -1,5 +1,10 @@
 import { createTagged, Tagged } from '../core'
-import { Capacitance, Inductance, Resistance } from '../core/metrics'
+import {
+  Capacitance,
+  ElectricalForce,
+  Inductance,
+  Resistance,
+} from '../core/metrics'
 
 export type BreakerOptions = undefined
 export type Breaker = Tagged<'breaker', BreakerOptions>
@@ -16,9 +21,12 @@ export type Voltmeter = Tagged<'voltmeter', VoltmeterOptions>
 export const voltmeter = (options: VoltmeterOptions = undefined) =>
   createTagged('voltmeter', options) as Voltmeter
 
-export type AmpermeterOptions = undefined
+export type AmpermeterOptions = {
+  derivation: Resistance
+  maxCurrent: ElectricalForce
+}
 export type Ampermeter = Tagged<'ampermeter', AmpermeterOptions>
-export const ampermeter = (options: AmpermeterOptions = undefined) =>
+export const ampermeter = (options: AmpermeterOptions) =>
   createTagged('ampermeter', options) as Ampermeter
 
 export type ResistorOptions = {

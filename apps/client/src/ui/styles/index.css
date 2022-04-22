@@ -1,9 +1,2 @@
 @import './tailwind.css';
 @import './preflight.css';
-
-button,
-[type='button'],
-[type='reset'],
-[type='submit'] {
-  background-color: unset; 
-}

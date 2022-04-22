@@ -14,10 +14,7 @@ export const capacitance = measurement(
 )
 export type Capacitance = ReturnType<typeof capacitance>
 
-export const inductance = measurement(
-  unit('мкГн'),
-  unit('мГн', 1000),
-)
+export const inductance = measurement(unit('мкГн'), unit('мГн', 1000))
 export type Inductance = ReturnType<typeof inductance>
 
 export const voltage = measurement(unit('В'))

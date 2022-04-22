@@ -9,7 +9,8 @@
   "main": "index.js",
   "scripts": {
     "dev:all": "npm run dev -w @energia/client & npm run dev -w @energia/server",
-    "client:build": "npm run build -w @energia/client"
+    "build:all": "npm run build -w @energia/client && npm run build -w @energia/server",
+    "start:build": "node ./dist-server/index.js"
   },
   "author": "",
   "license": "ISC",

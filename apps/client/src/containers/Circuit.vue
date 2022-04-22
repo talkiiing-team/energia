@@ -222,7 +222,7 @@
       <Node />
       <Node />
       <Node />
-      <Node v-bind.props="a2Binding.bind" />
+      <Node v-bind.props="a2Binding.bind" labelPlacement="right" />
       <Node />
       <Node />
       <Node />
@@ -252,7 +252,7 @@
       <Node></Node>
       <!---->
       <Node />
-      <Node :type="acDc._tag">
+      <Node :type="acDc._tag" name="E" labelPlacement="right">
         <template #form>
           <GeneratorForm />
         </template>

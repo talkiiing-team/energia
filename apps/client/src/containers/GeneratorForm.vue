@@ -9,7 +9,7 @@
       <template #checked>Постоянный</template>
       <template #unchecked>Переменный</template>
     </n-switch>
-    <label class="text-xs text-zinc-500">Напряжение</label>
+    <label class="text-xs text-zinc-500">Амплитуда, В</label>
     <n-input-number
       class="mb-2"
       v-model:value="acDc.value.voltage"
@@ -17,7 +17,7 @@
       :max="voltageRange.max"
       :step="1"
     />
-    <label class="text-xs text-zinc-500" v-if="!isDc">Частота</label>
+    <label class="text-xs text-zinc-500" v-if="!isDc">Частота, Гц</label>
     <n-input-number
       class="mb-3"
       v-if="!isDc"

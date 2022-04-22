@@ -8,8 +8,45 @@ export class AtService implements IAtService {
 
   private _lastPromise: Promise<any> = Promise.resolve()
 
+  private _lastPromiseResult = ''
+
   constructor({ port }: AtServiceDeps) {
     this._port = port
+  }
+
+  sendAtCommand(at: string) {
+    const normalizedCommand = `${at}\r\n`
+
+    return this._lastPromise.finally(() => {
+      const promise = new Promise<Buffer>((res, rej) => {
+        const dataListener = (data: Buffer) => {
+          const timeoutId = setTimeout(() => rej(), 5000)
+
+          console.log('Result in sendAtCommand', data.toString())
+          this._lastPromiseResult += data.toString()
+
+          if (this._lastPromiseResult.includes('OK')) {
+            res(data)
+            this._port.removeListener('data', dataListener)
+            clearTimeout(timeoutId)
+          }
+        }
+
+        const errorListener = (err: Error | null | undefined) => {
+          this._port.on('data', dataListener)
+          if (err) {
+            console.log('Error', err.toString())
+            rej(err)
+          }
+        }
+
+        this._port.write(normalizedCommand, errorListener)
+      })
+
+      this._lastPromise = promise
+
+      return promise
+    })
   }
 
   async getAdcData(channel1: string, channel2: string) {
@@ -71,39 +108,6 @@ export class AtService implements IAtService {
 
         return res({ channel1: mapAdcData(adc1), channel2: mapAdcData(adc2) })
       }, 500)
-    })
-  }
-
-  sendAtCommand(at: string) {
-    const normalizedCommand = `${at}\r\n`
-
-    return this._lastPromise.finally(() => {
-      const promise = new Promise<Buffer>((res, rej) => {
-        const dataListener = (data: Buffer) => {
-          const timeoutId = setTimeout(() => rej(), 5000)
-
-          console.log('Result in sendAtCommand', data.toString())
-          if (data.toString().includes('OK')) {
-            res(data)
-            this._port.removeListener('data', dataListener)
-            clearTimeout(timeoutId)
-          }
-        }
-
-        const errorListener = (err: Error | null | undefined) => {
-          this._port.on('data', dataListener)
-          if (err) {
-            console.log('Error', err.toString())
-            rej(err)
-          }
-        }
-
-        this._port.write(normalizedCommand, errorListener)
-      })
-
-      this._lastPromise = promise
-
-      return promise
     })
   }
 }

@@ -149,6 +149,11 @@ export const getAtCommand = (state: Record<keyof Circuit, number>) => {
     (val, i) => `at+mux=${i + 1}, ${val.toString(16)}`,
   )
 
+  const ampCommand = `at+rl=${parseInt(
+    [state.a3, state.a2, state.a1].join(''),
+    2,
+  )}`
+
   // return [...swCommands, `at+muxa=${muxState.join(' ')}`]
-  return [...swCommands, ...muxCommands]
+  return [...swCommands, ...muxCommands, ampCommand]
 }
