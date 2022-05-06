@@ -1,17 +1,26 @@
+import { config } from 'dotenv'
+import path from 'path'
+
+config({
+  path: path.resolve(
+    __dirname,
+    import.meta.env.PROD ? '../.env' : '../../../.env',
+  ),
+})
+
 import {
   asClass,
   asFunction,
   asValue,
   createContainer,
   InjectionMode,
-  Lifetime,
 } from 'awilix'
 import { INITIAL_STATE } from '@energia/common'
 import { SerialPort } from 'serialport'
 import { getChannels, setState } from './application'
 import { AtService } from './infrastructure'
 
-const {SERIAL_PORT = '/dev/ttyUSB0'} = process.env
+const { SERIAL_PORT = '/dev/ttyUSB0', PORT = '3030' } = process.env
 
 export const container = createContainer<{
   port: SerialPort
@@ -21,6 +30,8 @@ export const container = createContainer<{
   getChannels: ReturnType<typeof getChannels>
 
   atService: AtService
+
+  serverPort: number
 }>({
   injectionMode: InjectionMode.PROXY,
 }).register({
@@ -41,4 +52,6 @@ export const container = createContainer<{
   getChannels: asFunction(getChannels),
 
   atService: asClass(AtService),
+
+  serverPort: asValue(parseInt(PORT)),
 })
