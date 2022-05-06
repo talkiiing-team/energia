@@ -11,6 +11,8 @@ import { SerialPort } from 'serialport'
 import { getChannels, setState } from './application'
 import { AtService } from './infrastructure'
 
+const {SERIAL_PORT = '/dev/ttyUSB0'} = process.env
+
 export const container = createContainer<{
   port: SerialPort
   state: any
@@ -24,8 +26,7 @@ export const container = createContainer<{
 }).register({
   port: asValue(
     new SerialPort({
-      path: '/dev/ttyUSB0',
-      // path: '/dev/tty.usbserial-130',
+      path: SERIAL_PORT,
       baudRate: 921600,
       autoOpen: false,
     }),

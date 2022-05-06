@@ -5,13 +5,11 @@ import cors from 'cors'
 import queue from 'express-queue'
 import * as path from 'path'
 
+const { PASSWORD = 'VerySecure' } = process.env
+
 const app = express()
   .use(serveStatic(path.resolve(__dirname, '../dist-client')))
   .use(json())
-  .use((req, res, next) => {
-    console.log(req.ip)
-    next()
-  })
   .use(
     cors({
       origin: '*',
@@ -22,6 +20,16 @@ const app = express()
     res.send('hello')
   })
 
+  .use((req, res, next) => {
+    const userPassword = req.headers.authorization
+
+    if (userPassword !== PASSWORD) {
+      res.status(401)
+      return next(new Error('Not authorized'))
+    }
+
+    next()
+  })
   // for /state and /channels create a queue
   .use(queue({ activeLimit: 1, queuedLimit: -1 }))
   .post('/state', async (req, res, next) => {
@@ -47,8 +55,11 @@ const app = express()
       next(e)
     }
   })
+  .get('/auth', async (req, res, next) => {
+    res.json(true)
+  })
   .use((err, req, res, next) => {
-    res.status(500)
+    res.status(res.statusCode || 500)
     res.json({
       message: err.message,
       stack: process.env.NODE_ENV !== 'production' && err.stack,

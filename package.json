@@ -25,6 +25,7 @@
     "vitest": "^0.7.4"
   },
   "dependencies": {
+    "dotenv": "^16.0.0",
     "fp-ts": "^2.11.9",
     "ts-pattern": "^3.3.5"
   }

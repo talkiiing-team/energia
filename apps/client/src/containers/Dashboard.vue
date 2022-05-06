@@ -119,7 +119,9 @@
   import { toRefs, watch } from 'vue'
   import { tpv, amp } from '@energia/common'
 
-  const { channels, selectedChannels, acDc } = toRefs(circuitStore())
+  const { channels, selectedChannels, acDc, sendState } = toRefs(circuitStore())
+
+  sendState.value()
 
   const options = [...tpv, ...amp]
 
