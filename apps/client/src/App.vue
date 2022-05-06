@@ -1,6 +1,6 @@
 <template>
   <NLoadingBarProvider>
-    <NMessageProvider>
+    <NMessageProvider :duration="50000" :max="1">
       <div class="w-full mx-auto pt-16 pb-32">
         <Header />
         <template v-if="!store.isAuthorized">

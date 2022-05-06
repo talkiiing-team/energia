@@ -9,7 +9,9 @@ type SelectedChannels = {
   channel2: string
 }
 
-const BASE_URL = import.meta.env.PROD ? '' : `${window.location.protocol}//${window.location.hostname}:3030`
+const BASE_URL = import.meta.env.PROD
+  ? ''
+  : `${window.location.protocol}//${window.location.hostname}:3030`
 
 export const circuitStore = defineStore('circuit', () => {
   const loadingBar = useLoadingBar()
@@ -33,11 +35,12 @@ export const circuitStore = defineStore('circuit', () => {
       )
 
       channels.value = response.data
+      message.destroyAll()
     } catch (e) {
       message.error(
-        'Что-то пошло не так при попытке отправить данные. Повторите попытку',
+        e?.response?.data?.message ||
+          'Что-то пошло не так при попытке отправить данные. Повторите попытку',
       )
-      console.error(e)
     } finally {
       loadingBar.finish()
     }
@@ -60,9 +63,9 @@ export const circuitStore = defineStore('circuit', () => {
         channels.value = response.data
       } catch (e) {
         message.error(
-          'Что-то пошло не так при попытке получить данные. Повторите попытку',
+          e?.response?.data?.message ||
+            'Что-то пошло не так при попытке отправить данные. Повторите попытку',
         )
-        console.error(e)
       } finally {
         loadingBar.finish()
       }

@@ -1,9 +1,9 @@
-import fastify from 'fastify'
 import { container } from './container'
 import { static as serveStatic, json, default as express } from 'express'
 import cors from 'cors'
 import queue from 'express-queue'
 import * as path from 'path'
+import { PortClosedError } from './infrastructure'
 
 const { PASSWORD = 'VerySecure' } = process.env
 
@@ -25,7 +25,7 @@ const app = express()
 
     if (userPassword !== PASSWORD) {
       res.status(401)
-      return next(new Error('Not authorized'))
+      return next(new Error('Нет авторизации'))
     }
 
     next()
@@ -59,6 +59,13 @@ const app = express()
     res.json(true)
   })
   .use((err, req, res, next) => {
+    if (err instanceof PortClosedError) {
+      return res.status(503).json({
+        message:
+          'Проблемы с подключением устройства. Подключите устройство и перезапустите сервер.',
+      })
+    }
+
     res.status(res.statusCode || 500)
     res.json({
       message: err.message,

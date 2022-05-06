@@ -15,11 +15,15 @@ export const setState =
 
     if (acDc._tag === 'ac') {
       await atService.sendAtCommand(`at+ddsf=${acDc.value.frequency}`)
-      await atService.sendAtCommand(`at+ddsa=${Math.floor(6016 * acDc.value.voltage)}`)
+      await atService.sendAtCommand(
+        `at+ddsa=${Math.floor(6016 * acDc.value.voltage)}`,
+      )
       await atService.sendAtCommand(`at+dds=1`)
     } else {
       await atService.sendAtCommand(`at+dds=0`)
-      await atService.sendAtCommand(`at+dac=${Math.floor(acDc.value.voltage * 3008)}`)
+      await atService.sendAtCommand(
+        `at+dac=${Math.floor(acDc.value.voltage * 3008)}`,
+      )
     }
 
     await atService.sendAtCommand('at+swa?')

@@ -9,10 +9,11 @@ container.cradle.port.open(err => {
     container.cradle.atService
       .sendAtCommand('ate1')
       .then(() => container.cradle.setState(INITIAL_STATE))
-      .then(res => {
+      .then(() => {
         app.listen(container.cradle.serverPort, '0.0.0.0', () => {
           console.log(
-            'App listening on http://localhost:' + container.cradle.serverPort,
+            'Backend listening on http://localhost:' +
+              container.cradle.serverPort,
           )
         })
       })
